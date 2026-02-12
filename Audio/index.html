@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Harshita 💖</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    background: linear-gradient(to bottom, #f6d6dc, #f9e3e8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.card {
+    background: #ffffff;
+    width: 450px;
+    padding: 55px 35px;
+    border-radius: 30px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+    overflow: hidden;
+}
+
+h1 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+.buttons {
+    position: relative;
+    height: 140px;
+}
+
+#yesBtn {
+    background: #e5476b;
+    border: none;
+    padding: 15px 45px;
+    font-size: 18px;
+    color: white;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+#noBtn {
+    position: absolute;
+    background: #eee;
+    border: none;
+    padding: 15px 40px;
+    font-size: 16px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.flirty-text {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #e5476b;
+    font-style: italic;
+    min-height: 20px;
+}
+
+.final-screen {
+    display: none;
+    animation: fadeIn 1s ease forwards;
+}
+
+.final-screen h2 {
+    color: #e5476b;
+    font-size: 26px;
+    margin-bottom: 5px;
+}
+
+.final-screen p {
+    color: #777;
+    margin-bottom: 20px;
+}
+
+.memory-frame {
+    background: #f3f3f3;
+    padding: 15px;
+    border-radius: 20px;
+    animation: slideUp 1s ease forwards;
+}
+
+.memory-frame img {
+    width: 80%;
+    border-radius: 15px;
+}
+
+.caption {
+    margin-top: 15px;
+    font-style: italic;
+    color: #e5476b;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(40px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Floating Hearts */
+.heart {
+    position: absolute;
+    font-size: 18px;
+    animation: floatUp 4s linear infinite;
+    opacity: 0.6;
+}
+
+@keyframes floatUp {
+    from {
+        transform: translateY(0);
+        opacity: 0.8;
+    }
+    to {
+        transform: translateY(-600px);
+        opacity: 0;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card" id="card">
+
+<div id="questionScreen">
+    <h1>Harshita, will you be my Valentine? 💕</h1>
+
+    <div class="buttons">
+        <button id="yesBtn">Yes 💖</button>
+        <button id="noBtn">No 🙈</button>
+    </div>
+
+    <div class="flirty-text" id="flirtyText"></div>
+</div>
+
+<div class="final-screen" id="finalScreen">
+    <h2>It’s a date then! 💕</h2>
+    <p>Knew you'd say yes</p>
+
+    <div class="memory-frame">
+        <img src="memory.jpg" alt="Our Memory">
+    </div>
+
+    <div class="caption">
+        Every moment with you feels like magic ✨
+    </div>
+</div>
+
+</div>
+
+<script>
+
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const flirtyText = document.getElementById("flirtyText");
+const questionScreen = document.getElementById("questionScreen");
+const finalScreen = document.getElementById("finalScreen");
+
+let scale = 1;
+let flirtIndex = 0;
+
+const flirtMessages = [
+    "Are you sure? 😏",
+    "Think again beautiful 💕",
+    "No isn’t an option today 😉",
+    "My heart only accepts Yes 💘",
+    "Destiny says YES ✨",
+    "Okay okay… just press Yes already 🥺"
+];
+
+function moveButton() {
+    const card = document.getElementById("card");
+    const maxX = card.offsetWidth - noBtn.offsetWidth - 40;
+    const maxY = 90;
+
+    noBtn.style.left = Math.random() * maxX + "px";
+    noBtn.style.top = Math.random() * maxY + "px";
+
+    scale += 0.15;
+    yesBtn.style.transform = `scale(${scale})`;
+
+    flirtyText.textContent = flirtMessages[flirtIndex % flirtMessages.length];
+    flirtIndex++;
+}
+
+noBtn.addEventListener("mouseover", moveButton);
+noBtn.addEventListener("click", moveButton);
+
+yesBtn.addEventListener("click", () => {
+    questionScreen.style.display = "none";
+    finalScreen.style.display = "block";
+    startHearts();
+});
+
+function startHearts() {
+    for (let i = 0; i < 20; i++) {
+        let heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "💖";
+        heart.style.left = Math.random() * 100 + "%";
+        heart.style.bottom = "0px";
+        heart.style.fontSize = (15 + Math.random() * 20) + "px";
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 4000);
+    }
+}
+
+</script>
+
+</body>
+</html>
